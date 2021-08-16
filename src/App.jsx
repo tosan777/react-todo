@@ -56,7 +56,12 @@ export const App = () => {
         todoText={todoText}
         onChange={onChageTodoText}
         onClick={onClickAdd}
+        disabled={incompleteTodos.length >= 5}
       />
+
+      {incompleteTodos.length >= 5 && (
+        <p style={{ color: "red" }}>todoの数5個までやで、消化しなはれ</p>
+      )}
 
       <IncompleteTodos
         todos={incompleteTodos}
