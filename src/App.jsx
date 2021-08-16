@@ -1,5 +1,8 @@
 import "./styles.css";
 import React, { useState } from "react";
+import { InputTodo } from "./component/InputTodo";
+import { IncompleteTodos } from "./component/IncompleteTodos";
+import { CompleteTodos } from "./component/CompleteTodos";
 
 export const App = () => {
   // inputに入った値をstateする
@@ -49,46 +52,19 @@ export const App = () => {
 
   return (
     <>
-      <div className="input-area">
-        <input
-          type="text"
-          placeholder="TODOを入力"
-          value={todoText}
-          // onChange：値を加工する
-          onChange={onChageTodoText}
-        />
-        <button onClick={onClickAdd}>追加</button>
-      </div>
+      <InputTodo
+        todoText={todoText}
+        onChange={onChageTodoText}
+        onClick={onClickAdd}
+      />
 
-      <div className="incomplete-area">
-        <p className="title">未完了のTODO</p>
-        <div>
-          {incompleteTodos.map((todo, index) => {
-            return (
-              <ul key={todo} className="list-row">
-                <li>{todo}</li>
-                {/* onClickイベントを設定し、クリックした時の処理がまとまっている関数名を記述し、配列の中のindex番号を取得する */}
-                <button onClick={() => onClickComplete(index)}>完了</button>
-                <button onClick={() => onClickDelete(index)}>削除</button>
-              </ul>
-            );
-          })}
-        </div>
-      </div>
+      <IncompleteTodos
+        todos={incompleteTodos}
+        onClickComplete={onClickComplete}
+        onClickDelete={onClickDelete}
+      />
 
-      <div className="complete-area">
-        <p className="title">完了のTODO</p>
-        <div>
-          {completeTodos.map((todo, index) => {
-            return (
-              <ul key="todo" className="list-row">
-                <li>{todo}</li>
-                <button onClick={() => onClickBack(index)}>戻す</button>
-              </ul>
-            );
-          })}
-        </div>
-      </div>
+      <CompleteTodos todos={completeTodos} onClickBack={onClickBack} />
     </>
   );
 };
